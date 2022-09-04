@@ -22,10 +22,10 @@ class Task(models.Model):
     state = IntegerRangeField(min_value = 1, max_value = 4)
     creation_date = models.DateField(default = datetime.date.today)
     completion_date = models.DateField()
-    assignee = models.ForeignKey(User, on_delete = models.CASCADE, default = None, related_name ='assignee')
-    creator = models.ForeignKey(User, on_delete = models.CASCADE, default = None, related_name ='creator')
+    assignee = models.ForeignKey(User, on_delete = models.CASCADE, default = None, related_name = 'assignee')
+    creator = models.ForeignKey(User, on_delete = models.CASCADE, default = None, related_name = 'creator')
 
     def time_since_its_creation(self):
         currentDay = datetime.date.today()
-        passedTime = currentDay - self.created_at
+        passedTime = currentDay - self.creation_date
         return str(passedTime.days) + ' ' + 'days.'
