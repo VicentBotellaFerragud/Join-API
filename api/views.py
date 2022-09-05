@@ -6,7 +6,7 @@ from .serializers import TaskSerializer
 # Create your views here.
 
 @api_view(['GET'])
-def apiOverview():
+def apiOverview(request):
     api_urls = {
         'Task List':'/task-list/',
         'Task Detail View':'task-detail/<str:pk>/',
