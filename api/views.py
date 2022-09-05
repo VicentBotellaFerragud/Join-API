@@ -23,7 +23,7 @@ def taskList(request):
     tasks = Task.objects.all()
 
     if not tasks:
-        return Response('No task has been created yet')
+        return Response('No task has been created yet.')
     
     else:
         serializer = TaskSerializer(tasks, many = True)
@@ -43,6 +43,8 @@ def taskCreate(request):
 
     if serializer.is_valid():
         serializer.save()
+    else:
+        Response('The data is not valid.') 
 
     return Response(serializer.data)   
 
@@ -61,4 +63,4 @@ def taskDelete(request, pk):
     task = Task.objects.get(id = pk)
     task.delete()
 
-    return Response('Task successfully deleted')    
+    return Response('Task successfully deleted!')    

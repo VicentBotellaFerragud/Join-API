@@ -9,3 +9,9 @@ class TaskAdmin(admin.ModelAdmin):
     list_display = ('title', 'description', 'priority', 'state', 'creation_date', 'completion_date', 'assignee', 'creator',)
    
 admin.site.register(Task, TaskAdmin)
+
+"""
+class TaskAdmin(admin.ModelAdmin):
+    fields = ('title', 'description', 'priority', 'state', 'creation_date', 'completion_date', 'assignee', 'creator',)    
+    list_display = ('title', 'description', 'priority', 'state', 'creation_date', 'completion_date', 'assignee', 'creator',)
+"""

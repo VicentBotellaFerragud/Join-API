@@ -18,6 +18,22 @@ class IntegerRangeField(models.IntegerField):
 class Task(models.Model):
     title = models.CharField(max_length = 30)
     description = models.CharField(max_length = 60)
+    priority = IntegerRangeField(min_value = 1, max_value = 3, default = 1)
+    state = IntegerRangeField(min_value = 1, max_value = 4, default = 1)
+    creation_date = models.DateField(default = datetime.date.today)
+    completion_date = models.DateField(null = True, blank = True)
+    assignee = models.CharField(max_length = 30)
+    creator = models.CharField(max_length = 30)
+
+    def time_since_its_creation(self):
+        currentDay = datetime.date.today()
+        passedTime = currentDay - self.creation_date
+        return str(passedTime.days) + ' ' + 'days.'
+
+"""
+class Task(models.Model):
+    title = models.CharField(max_length = 30)
+    description = models.CharField(max_length = 60)
     priority = IntegerRangeField(min_value = 1, max_value = 3)
     state = IntegerRangeField(min_value = 1, max_value = 4)
     creation_date = models.DateField(default = datetime.date.today)
@@ -29,3 +45,4 @@ class Task(models.Model):
         currentDay = datetime.date.today()
         passedTime = currentDay - self.creation_date
         return str(passedTime.days) + ' ' + 'days.'
+"""
