@@ -1,13 +1,15 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Task
-from .serializers import TaskSerializer
+from django.contrib.auth.models import User  # Built-in Django model that provides us with username, email, password, first_name, and last_name fields.
+from .serializers import UserSerializer, TaskSerializer
 
 # Create your views here.
 
 @api_view(['GET'])
 def apiOverview(request):
     api_urls = {
+        'User List':'/user-list/',
         'Task List':'/task-list/',
         'Task Detail View':'task-detail/<str:pk>/',
         'Task Create':'/task-create/',
@@ -16,6 +18,23 @@ def apiOverview(request):
     }
 
     return Response(api_urls)
+
+def getAllUsers(request):
+    users = User.objects.all()
+
+    if not users:
+        return Response('The user list is empty.')
+
+    else:
+        serializer = UserSerializer(users, many = True)
+
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def userList(request):
+
+    return getAllUsers(request)
+
 
 def getAlltasks(request):
     tasks = Task.objects.all()

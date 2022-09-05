@@ -1,5 +1,6 @@
 from django.db import models
 import datetime
+from django.contrib.auth.models import User  # Built-in Django model that provides us with username, email, password, first_name, and last_name fields.
 
 # Create your models here.
 
@@ -21,8 +22,8 @@ class Task(models.Model):
     state = IntegerRangeField(min_value = 1, max_value = 4, default = 1)
     creation_date = models.DateField(default = datetime.date.today)
     completion_date = models.DateField(null = True, blank = True)
-    assignee = models.CharField(max_length = 15, null = True, blank = True)
-    creator = models.CharField(max_length = 15, null = True, blank = True)
+    assignee = models.ForeignKey(User, on_delete = models.CASCADE, null = True, blank = True, default = None, related_name = 'assignee')
+    creator = models.ForeignKey(User, on_delete = models.CASCADE, null = True, blank = True, default = None, related_name = 'creator')
 
     def time_since_its_creation(self):
         currentDay = datetime.date.today()
