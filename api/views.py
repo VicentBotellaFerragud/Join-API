@@ -10,6 +10,8 @@ from .serializers import UserSerializer, TaskSerializer
 def apiOverview(request):
     api_urls = {
         'User List':'/user-list/',
+        'User Detail View':'user-detail/<str:pk>/',
+        'User Create':'/user-create/',
         'Task List':'/task-list/',
         'Task Detail View':'task-detail/<str:pk>/',
         'Task Create':'/task-create/',
@@ -35,6 +37,18 @@ def userList(request):
 
     return getAllUsers(request)
 
+@api_view(['GET'])
+def userDetail(request, pk):
+    user = User.objects.get(id = pk)
+    serializer = UserSerializer(user, many = False)
+
+    return Response(serializer.data)  
+
+@api_view(['POST'])
+def userCreate(request):
+    print(request.data)
+
+    return getAllUsers(request) 
 
 def getAlltasks(request):
     tasks = Task.objects.all()
