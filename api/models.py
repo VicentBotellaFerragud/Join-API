@@ -1,6 +1,5 @@
 from django.db import models
 import datetime
-from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -22,27 +21,10 @@ class Task(models.Model):
     state = IntegerRangeField(min_value = 1, max_value = 4, default = 1)
     creation_date = models.DateField(default = datetime.date.today)
     completion_date = models.DateField(null = True, blank = True)
-    assignee = models.CharField(max_length = 30)
-    creator = models.CharField(max_length = 30)
+    assignee = models.CharField(max_length = 15, null = True, blank = True)
+    creator = models.CharField(max_length = 15, null = True, blank = True)
 
     def time_since_its_creation(self):
         currentDay = datetime.date.today()
         passedTime = currentDay - self.creation_date
         return str(passedTime.days) + ' ' + 'days.'
-
-"""
-class Task(models.Model):
-    title = models.CharField(max_length = 30)
-    description = models.CharField(max_length = 60)
-    priority = IntegerRangeField(min_value = 1, max_value = 3)
-    state = IntegerRangeField(min_value = 1, max_value = 4)
-    creation_date = models.DateField(default = datetime.date.today)
-    completion_date = models.DateField()
-    assignee = models.ForeignKey(User, on_delete = models.CASCADE, default = None, related_name = 'assignee')
-    creator = models.ForeignKey(User, on_delete = models.CASCADE, default = None, related_name = 'creator')
-
-    def time_since_its_creation(self):
-        currentDay = datetime.date.today()
-        passedTime = currentDay - self.creation_date
-        return str(passedTime.days) + ' ' + 'days.'
-"""
