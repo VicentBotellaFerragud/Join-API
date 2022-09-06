@@ -1,6 +1,6 @@
 from django.db import models
 import datetime
-from django.contrib.auth.models import User  # Built-in Django model that provides us with username, email, password, first_name, and last_name fields.
+from django.contrib.auth.models import User
 
 # Create your models here.
 

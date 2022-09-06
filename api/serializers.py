@@ -1,19 +1,8 @@
 from rest_framework import serializers
 from .models import Task
-from django.contrib.auth.models import User  # Built-in Django model that provides us with username, email, password, first_name, and last_name fields.
+from django.contrib.auth.models import User 
 
 class UserSerializer(serializers.ModelSerializer):
-
-    def create(self, validated_data):
-
-        try:
-            user = User.objects.get(username = validated_data['username'])
-            return user
-
-        except User.DoesNotExist:
-            user = User.objects.create_user(**validated_data)
-            user.save()
-            return user
        
     class Meta:
         model = User
