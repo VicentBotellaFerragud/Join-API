@@ -4,13 +4,22 @@ from django.contrib.auth.models import User  # Built-in Django model that provid
 
 class UserSerializer(serializers.ModelSerializer):
 
+    def create(self, validated_data):
+
+        try:
+            user = User.objects.get(username = validated_data['username'])
+            return user
+
+        except User.DoesNotExist:
+            user = User.objects.create_user(**validated_data)
+            user.save()
+            return user
+       
     class Meta:
         model = User
         fields = "__all__"
 
 class TaskSerializer(serializers.ModelSerializer):
-    assignee = UserSerializer()
-    creator = UserSerializer()
 
     class Meta:
         model = Task
