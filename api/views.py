@@ -158,7 +158,7 @@ def taskCreate(request):
 
     return getAlltasks(request)  
 
-@api_view(['POST'])
+@api_view(['PUT'])
 def taskUpdate(request, pk):
 
     try:
