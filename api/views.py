@@ -163,7 +163,22 @@ def taskUpdate(request, pk):
 
     try:
         task = Task.objects.get(id = pk)
-        serializer = TaskSerializer(instance = task, data = request.data)
+
+        assignee = User.objects.get(username = request.data.get('assignee'))
+        creator = User.objects.get(username = request.data.get('creator'))
+
+        data = {
+            'title': request.data.get('title'), 
+            'description': request.data.get('description'), 
+            'priority': request.data.get('priority'), 
+            'state': request.data.get('state'), 
+            'creation_date': request.data.get('creation_date'), 
+            'completion_date': request.data.get('completion_date'), 
+            'assignee': assignee.id,
+            'creator': creator.id
+        }
+
+        serializer = TaskSerializer(instance = task, data = data)
 
         if serializer.is_valid():
             serializer.save()
